@@ -1,0 +1,48 @@
+# Machine Learning for prediction
+# Author: James Lee
+# Date: Dec 7, 2020
+# Machine Learning model
+
+from sklearn.linear_model import LinearRegression
+import random
+
+train_input = []
+train_output = []
+i = 0
+
+#Create a list in lists
+for j in range(100):
+  train_input.append([])
+
+#Add 3 random numbers to each list in list
+while i < 100:
+  for g in range(0, 3):
+    n = random.randint(1, 100)
+    train_input[i].append(n)
+  i += 1
+
+#A function where each item is computed using the algebraic relationship and added to the train_output list
+def model(list):
+  j = 0
+  while j < 100:
+    number = 0
+    n = 1
+    for b in list[j]:
+      number += b*n
+      n += 1
+    j += 1
+    train_output.append(number)
+  
+model(train_input)
+
+#Training the model
+predictor = LinearRegression(n_jobs=-1)
+predictor.fit(X=train_input, y=train_output)
+
+#Using the model for prediction
+X_test = [[10,20,30]]
+outcome = predictor.predict(X=X_test)
+coefficients = predictor.coef_
+
+print("prediction: " + str(outcome))
+print("Coefficients: " + str(coefficients))
